@@ -17,6 +17,8 @@ public class Cartao {
 
     @NotNull
     private Integer clienteId;
+    //Remover IdCliente e substituir para Cliente com anotação @ManyToOne
+    //Criar DTO's e Mappers para requests e responses conforme contrato da API
 
     private Boolean ativo;
 

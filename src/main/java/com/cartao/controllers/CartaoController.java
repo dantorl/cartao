@@ -1,5 +1,6 @@
 package com.cartao.controllers;
 
+import com.cartao.dtos.CriarCartaoDTO;
 import com.cartao.models.Cartao;
 import com.cartao.models.Cliente;
 import com.cartao.services.CartaoService;
@@ -38,6 +39,25 @@ public class CartaoController {
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
         }
+    }
+
+    @PostMapping("/teste")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cartao createCartao(@RequestBody CriarCartaoDTO criarCartaoDTO) {
+        Optional<Cliente> clienteOptional;
+        try{
+            clienteOptional = clienteService.buscarClientePorId(criarCartaoDTO.getClienteId());
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
+        }
+
+        Cartao cartaoObjeto = new Cartao();
+        cartaoObjeto.setNumero(criarCartaoDTO.getNumero());
+        cartaoObjeto.setAtivo(false);
+        cartaoObjeto.setClienteId(criarCartaoDTO.getClienteId());
+
+        return cartaoService.createCartao(cartaoObjeto);
+
     }
 
     @PatchMapping("/{numero}")

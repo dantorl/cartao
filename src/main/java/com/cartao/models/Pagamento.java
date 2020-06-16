@@ -11,8 +11,11 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPagamento;
 
-    @NotNull
-    private Integer cartaoId;
+    @ManyToOne
+    private Cartao cartao;
+    //private Integer cartaoId;
+    //Remover cartaoId e substituir por Cartao com anotação @ManyToOne
+    //Criar DTO's e Mappers para requests e responses conforme contrato da API
 
     @NotNull
     @Size(min = 4, max = 20, message = "A descrição da compra deve ter no mínimo 4 caracteres")
@@ -24,9 +27,9 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Pagamento(Integer idPagamento, @NotNull Integer cartaoId, @NotNull @Size(min = 4, max = 20, message = "A descrição da compra deve ter no mínimo 4 caracteres") String descricao, @NotNull Double valor) {
+    public Pagamento(Integer idPagamento, Cartao cartao, @NotNull @Size(min = 4, max = 20, message = "A descrição da compra deve ter no mínimo 4 caracteres") String descricao, @NotNull Double valor) {
         this.idPagamento = idPagamento;
-        this.cartaoId = cartaoId;
+        this.cartao = cartao;
         this.descricao = descricao;
         this.valor = valor;
     }
@@ -39,12 +42,12 @@ public class Pagamento {
         this.idPagamento = idPagamento;
     }
 
-    public Integer getCartaoId() {
-        return cartaoId;
+    public Cartao getCartao() {
+        return cartao;
     }
 
-    public void setCartaoId(Integer cartaoId) {
-        this.cartaoId = cartaoId;
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
 
     public String getDescricao() {

@@ -1,5 +1,6 @@
 package com.cartao.services;
 
+import com.cartao.exceptions.CartaoAlreadyExistsException;
 import com.cartao.models.Cartao;
 import com.cartao.models.Cliente;
 import com.cartao.repositories.CartaoRepository;
@@ -18,6 +19,17 @@ public class CartaoService {
         Optional<Cartao> cartaoOptional = cartaoRepository.findByNumero(cartao.getNumero());
         if (cartaoOptional.isPresent()) {
             throw new ObjectNotFoundException("","Número de Cartão já existe");
+        } else {
+
+            Cartao cartaoObjeto = cartaoRepository.save(cartao);
+            return cartaoObjeto;
+        }
+    }
+
+    public Cartao createCartao(Cartao cartao) {
+        Optional<Cartao> cartaoOptional = cartaoRepository.findByNumero(cartao.getNumero());
+        if (cartaoOptional.isPresent()) {
+            throw new CartaoAlreadyExistsException();
         } else {
 
             Cartao cartaoObjeto = cartaoRepository.save(cartao);

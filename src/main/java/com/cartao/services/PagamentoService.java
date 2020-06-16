@@ -6,6 +6,8 @@ import com.cartao.repositories.PagamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PagamentoService {
     @Autowired
@@ -16,8 +18,8 @@ public class PagamentoService {
         return pagamentoObjeto;
     }
 
-    public Iterable<Pagamento> buscarPagamentos(Integer id) {
-        Iterable<Pagamento> pagamentos = pagamentoRepository.findByCartaoId(id);
+    public List<Pagamento> buscarPagamentos(Integer id) {
+        List<Pagamento> pagamentos = pagamentoRepository.findByCartao_IdCartao(id);
         return pagamentos;
     }
 
